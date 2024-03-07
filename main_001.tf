@@ -39,6 +39,9 @@ resource "azurerm_storage_accountg" "EverBridgeCEM_str_acct" {
     environment = "Test"
   }
 }
+#remove bad files
+#remove bad files
+
 
 # Create AKS cluster
 resource "azurerm_kubernetes_cluster" "EverBridgeCEM" {
