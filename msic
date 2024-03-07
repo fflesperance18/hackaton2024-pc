@@ -1,0 +1,2 @@
+az account set --subscription 'my_subscription_id'
+az ad sp create-for-rbac --skip-assignment --name 'my-service-pincipal'
