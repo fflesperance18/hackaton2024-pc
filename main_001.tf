@@ -97,3 +97,22 @@ output "aks_cluster_details" {
   value = azurerm_kubernetes_cluster.EverBridgeCEM
   sensitive = true
 }
+resource "kubernetes_service" "website_service" {
+  metadata {
+    name = "website-service"
+  }
+
+  spec {
+    selector = {
+      app = "website"
+    }
+
+    port {
+      port        = 80
+      target_port = 80
+    }
+
+    type = "LoadBalancer"
+  }
+}
+
