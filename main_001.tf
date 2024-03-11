@@ -61,7 +61,7 @@ resource "azurerm_kubernetes_cluster" "EverBridgeCEM" {
   }
 
   tags = {
-    environment = "Production"
+    environment = "TEST"
   }
 }
 
@@ -97,6 +97,20 @@ output "aks_cluster_details" {
   value = azurerm_kubernetes_cluster.EverBridgeCEM
   sensitive = true
 }
+
+
+resource "azurerm_container_registry" "PC_ACR" {
+  name                     = "PC_ACR_001"
+  resource_group_name = azurerm_resource_group.EverBridgeCEM.name
+  location            = azurerm_resource_group.EverBridgeCEM.location
+  sku                      = "Standard"  # or "Basic" or "Premium"
+  admin_enabled            = true        # Enable admin user for ACR
+}
+
+output "acr_login_server" {
+  value = azurerm_container_registry.PC_ACR_001.login_server
+}
+
 resource "kubernetes_service" "website_service" {
   metadata {
     name = "website-service"
