@@ -107,4 +107,19 @@ resource "kubernetes_service" "website_service" {
     type = "LoadBalancer"
   }
 }
+resource "kubernetes_ingress" "website_ingress" {
+  metadata {
+    name = "website-ingress"
+    annotations = {
+      "kubernetes.io/ingress.class" = "nginx"
+    }
+  }
+
+  spec {
+    backend {
+      service_name = kubernetes_service.website_service.metadata.0.name
+      service_port = kubernetes_service.website_service.spec.0.port.0.port
+    }
+  }
+}
 
