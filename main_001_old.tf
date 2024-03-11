@@ -4,13 +4,13 @@ provider "azurerm" {
 
 # Create EverBridgeCEM resource group
 resource "azurerm_resource_group" "EverBridgeCEM" {
-  name     = "everbridgeCEM-resources"
+  name     = "EverBridgeCEM-resources"
   location = "East US"
 }
 
 # Create EverBridgeCEM storage acct
-resource "azurerm_storage_account" "EverBridgeCEM_str_acct" {
-  name     = "everbridgecemstrgacct"
+resource "azurerm_storage_accountg" "EverBridgeCEM_str_acct" {
+  name     = "EverBridgeCEM_str_acct"
   resource_group_name=azurerm_resource_group.EverBridgeCEM.name 
   location=azurerm_resource_group.EverBridgeCEM.location
   account_tier="Standard"
@@ -20,6 +20,28 @@ resource "azurerm_storage_account" "EverBridgeCEM_str_acct" {
     environment = "Test"
   }
 }
+
+# Create EverBridgeCEM resource group
+resource "azurerm_resource_group" "EverBridgeCEM" {
+  name     = "EverBridgeCEM-resources"
+  location = "East US"
+}
+
+# Create EverBridgeCEM storage acct
+resource "azurerm_storage_accountg" "EverBridgeCEM_str_acct" {
+  name     = "EverBridgeCEM_str_acct"
+  resource_group_name=azurerm_resource_group.EverBridgeCEM.name 
+  location=azurerm_resource_group.EverBridgeCEM.location
+  account_tier="Standard"
+  account_replication_type="LRS"
+  
+  tags={
+    environment = "Test"
+  }
+}
+#remove bad files
+#remove bad files
+
 
 # Create AKS cluster
 resource "azurerm_kubernetes_cluster" "EverBridgeCEM" {
@@ -78,7 +100,7 @@ output "aks_cluster_details" {
 
 
 resource "azurerm_container_registry" "PC_ACR" {
-  name                     = "pcACR001"
+  name                     = "PC_ACR_001"
   resource_group_name = azurerm_resource_group.EverBridgeCEM.name
   location            = azurerm_resource_group.EverBridgeCEM.location
   sku                      = "Standard"  # or "Basic" or "Premium"
@@ -86,7 +108,7 @@ resource "azurerm_container_registry" "PC_ACR" {
 }
 
 output "acr_login_server" {
-  value = azurerm_container_registry.PC_ACR.login_server
+  value = azurerm_container_registry.PC_ACR_001.login_server
 }
 
 resource "kubernetes_service" "website_service" {
